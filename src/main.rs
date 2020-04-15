@@ -1,4 +1,5 @@
 use raytracer::image::PPM;
+use raytracer::vec3::Vec3;
 
 fn main() {
     let image_width = 200;
@@ -11,10 +12,11 @@ fn main() {
             let g = j as f32 / image_height as f32;
             let b = 0.2 as f32;
 
-            let ir = (255.999 * r) as u32;
-            let ig = (255.999 * g) as u32;
-            let ib = (255.999 * b) as u32;
-            image.add_pixel(x, y, ir, ig, ib);
+            let ir = 255.999 * r;
+            let ig = 255.999 * g;
+            let ib = 255.999 * b;
+            let pixel = Vec3::new(ir, ig, ib);
+            image.add_pixel(x, y, pixel);
         }
     }
 
