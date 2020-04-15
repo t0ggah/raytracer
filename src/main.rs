@@ -1,5 +1,5 @@
+use raytracer::color::Color;
 use raytracer::image::PPM;
-use raytracer::vec3::Vec3;
 
 fn main() {
     let image_width = 200;
@@ -12,11 +12,8 @@ fn main() {
             let g = j as f32 / image_height as f32;
             let b = 0.2 as f32;
 
-            let ir = 255.999 * r;
-            let ig = 255.999 * g;
-            let ib = 255.999 * b;
-            let pixel = Vec3::new(ir, ig, ib);
-            image.add_pixel(x, y, pixel);
+            let color = Color::new(r, g, b);
+            image.add_pixel(x, y, color);
         }
     }
 
