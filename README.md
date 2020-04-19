@@ -7,8 +7,8 @@ Building a RayTracer in Rust with help from this tutorial: [RayTracingInOneWeeke
 ## Todo
 
 - [x] Output an image
-- [ ] Add Vec3 struct
-- [ ] Add Ray struct
+- [x] Add Vec3 struct
+- [x] Add Ray struct
 - [ ] ...
 
 ## Images
