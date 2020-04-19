@@ -1,4 +1,4 @@
-use crate::color::Color;
+use crate::vector::Color;
 use std::fmt;
 
 #[derive(Debug)]

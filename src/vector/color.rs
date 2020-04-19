@@ -1,4 +1,4 @@
-use crate::vec3::Vec3;
+use crate::vector::Vec3;
 use std::fmt;
 
 #[derive(Debug, Clone, Copy, Default)]
@@ -7,6 +7,10 @@ pub struct Color(Vec3);
 impl Color {
     pub fn new(r: f32, g: f32, b: f32) -> Self {
         Color(Vec3::new(r, g, b))
+    }
+
+    pub fn from_vec3(v: Vec3) -> Self {
+        Color(v)
     }
 
     pub fn get_r(&self) -> f32 {

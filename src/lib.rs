@@ -1,3 +1,3 @@
-pub mod color;
 pub mod image;
-pub mod vec3;
+pub mod ray;
+pub mod vector;
