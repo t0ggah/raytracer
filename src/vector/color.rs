@@ -1,5 +1,4 @@
 use crate::vector::Vec3;
-use std::fmt;
 
 #[derive(Debug, Clone, Copy, Default)]
 pub struct Color(Vec3);
@@ -24,13 +23,33 @@ impl Color {
     pub fn get_b(&self) -> f32 {
         self.0.e[2]
     }
+
+    pub fn write(&self, samples_per_pixel: u8) -> String {
+        let scale = 1.0 / samples_per_pixel as f32;
+        let r = scale * self.get_r();
+        let g = scale * self.get_g();
+        let b = scale * self.get_b();
+        let ir = (256.0 * clamp(r, 0.0, 0.999)) as u8;
+        let ig = (256.0 * clamp(g, 0.0, 0.999)) as u8;
+        let ib = (256.0 * clamp(b, 0.0, 0.999)) as u8;
+        format!("{} {} {}", ir, ig, ib)
+    }
 }
 
-impl fmt::Display for Color {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let ir = (255.999 * self.get_r()) as u8;
-        let ig = (255.999 * self.get_g()) as u8;
-        let ib = (255.999 * self.get_b()) as u8;
-        write!(f, "{} {} {}", ir, ig, ib)
+fn clamp(x: f32, min: f32, max: f32) -> f32 {
+    if x < min {
+        return min;
+    };
+    if x > max {
+        return max;
+    };
+    return x;
+}
+
+impl std::ops::AddAssign for Color {
+    fn add_assign(&mut self, rhs: Self) {
+        self.0.e[0] += rhs.0.e[0];
+        self.0.e[1] += rhs.0.e[1];
+        self.0.e[2] += rhs.0.e[2];
     }
 }

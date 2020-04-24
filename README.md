@@ -25,3 +25,7 @@ Fourth part colors a sphere to its normal vectors:
 Fifth part adds hittable objects and draws to sphere's on image
 
 ![Fifth image](/images/fifth_image.png)
+
+Sixth part adds antialising to the edges of the objects
+
+![Sixth image](/images/sixth_image.png)
