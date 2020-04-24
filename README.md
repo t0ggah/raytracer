@@ -33,3 +33,7 @@ Sixth part adds antialising to the edges of the objects
 Seventh part renders a diffuse sphere
 
 ![Seventh image](/images/seventh_image.png)
+
+Eight part does a gamma correction to the diffuse sphere
+
+![Eight image](/images/eight_image.png)

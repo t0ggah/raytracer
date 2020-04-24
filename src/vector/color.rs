@@ -26,9 +26,9 @@ impl Color {
 
     pub fn write(&self, samples_per_pixel: u8) -> String {
         let scale = 1.0 / samples_per_pixel as f32;
-        let r = scale * self.get_r();
-        let g = scale * self.get_g();
-        let b = scale * self.get_b();
+        let r = (scale * self.get_r()).sqrt();
+        let g = (scale * self.get_g()).sqrt();
+        let b = (scale * self.get_b()).sqrt();
         let ir = (256.0 * clamp(r, 0.0, 0.999)) as u8;
         let ig = (256.0 * clamp(g, 0.0, 0.999)) as u8;
         let ib = (256.0 * clamp(b, 0.0, 0.999)) as u8;

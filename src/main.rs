@@ -31,7 +31,7 @@ where
             for _ in 0..100 {
                 let u = (i as f32 + random()) / image_width as f32;
                 let v = (j as f32 + random()) / image_height as f32;
-                let ray = camera.get_ray(u, v);
+                let mut ray = camera.get_ray(u, v);
 
                 color += ray.color(&world, max_depth);
             }
