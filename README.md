@@ -4,13 +4,6 @@
 
 Building a RayTracer in Rust with help from this tutorial: [RayTracingInOneWeekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
 
-## Todo
-
-- [x] Output an image
-- [x] Add Vec3 struct
-- [x] Add Ray struct
-- [ ] ...
-
 ## Images
 
 First section outputs an image and this was the result:
