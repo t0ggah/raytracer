@@ -1,6 +1,8 @@
 use crate::random::{random, random_min_max};
 use std::ops;
 
+const PI: f32 = 3.1415926535897932385;
+
 #[derive(Debug, Clone, Copy, Default, PartialEq)]
 pub struct Vec3 {
     pub e: [f32; 3],
@@ -9,6 +11,14 @@ pub struct Vec3 {
 impl Vec3 {
     pub fn new(e0: f32, e1: f32, e2: f32) -> Self {
         Vec3 { e: [e0, e1, e2] }
+    }
+
+    pub fn random_unit_vector() -> Self {
+        let a = random_min_max(0.0, 2.0 * PI);
+        let z = random_min_max(-1.0, 1.0);
+        let r = (1.0 - z * z).sqrt();
+
+        return Vec3::new(r * a.cos(), r * a.sin(), z);
     }
 
     pub fn random_in_unit_sphere() -> Self {
