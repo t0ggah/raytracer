@@ -20,3 +20,11 @@ First section outputs an image and this was the result:
 Second part adds Ray which creates an image with a "linear blend":
 
 ![Second image](/images/second_image.png)
+
+Third part colors a sphere red:
+
+![Third image](/images/third_image.png)
+
+Fourth part colors a sphere to its normal vectors:
+
+![Fourth image](/images/fourth_image.png)

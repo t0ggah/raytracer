@@ -28,9 +28,9 @@ impl Color {
 
 impl fmt::Display for Color {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let ir = 255.999 * self.get_r();
-        let ig = 255.999 * self.get_g();
-        let ib = 255.999 * self.get_b();
-        write!(f, "{} {} {}", ir as u32, ig as u32, ib as u32)
+        let ir = (255.999 * self.get_r()) as u8;
+        let ig = (255.999 * self.get_g()) as u8;
+        let ib = (255.999 * self.get_b()) as u8;
+        write!(f, "{} {} {}", ir, ig, ib)
     }
 }
