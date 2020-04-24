@@ -72,6 +72,17 @@ impl ops::Sub for Vec3 {
     }
 }
 
+impl ops::Neg for Vec3 {
+    type Output = Self;
+
+    fn neg(mut self) -> Self::Output {
+        self.e[0] *= -1.0;
+        self.e[1] *= -1.0;
+        self.e[2] *= -1.0;
+        self
+    }
+}
+
 #[cfg(test)]
 mod test_vec3 {
     use super::*;
@@ -101,6 +112,15 @@ mod test_vec3 {
 
         let expected = Vec3::new(5.0, 7.0, 9.0);
         let result = a + b;
+        assert_eq!(result, expected);
+    }
+
+    #[test]
+    fn test_negating_a_vector() {
+        let a = Vec3::new(4.0, 5.0, 6.0);
+
+        let expected = Vec3::new(-4.0, -5.0, -6.0);
+        let result = -a;
         assert_eq!(result, expected);
     }
 

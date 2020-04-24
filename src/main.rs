@@ -1,3 +1,4 @@
+use raytracer::hittable::{HittableList, Sphere};
 use raytracer::image::{ModifiableImage, PPM};
 use raytracer::ray::Ray;
 use raytracer::vector::Vec3;
@@ -20,6 +21,10 @@ where
     let vertical = Vec3::new(0.0, 2.0, 0.0);
     let origin = Vec3::new(0.0, 0.0, 0.0);
 
+    let mut world = HittableList::new();
+    world.add(Sphere::new(Vec3::new(0.0, 0.0, -1.0), 0.5));
+    world.add(Sphere::new(Vec3::new(0.0, -100.5, -1.0), 100.0));
+
     for (j, y) in (0..image_height).rev().enumerate() {
         for (i, x) in (0..image_width).enumerate() {
             let u = i as f32 / image_width as f32;
@@ -27,7 +32,7 @@ where
 
             let ray = Ray::new(origin, lower_left_corner + horizontal * u + vertical * v);
 
-            let color = ray.color();
+            let color = ray.color(&world);
             image_creator.add_pixel(x, y, color);
         }
     }

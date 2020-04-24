@@ -1,4 +1,8 @@
-use crate::vector::{dot, unit_vector, Color, Vec3};
+use crate::hittable::Hittable;
+use crate::vector::{unit_vector, Color, Vec3};
+
+const INFINITY: f32 = std::f32::MAX;
+const PI: f32 = 3.1415926535897932385;
 
 pub struct Ray {
     origin: Vec3,
@@ -10,15 +14,21 @@ impl Ray {
         Ray { origin, direction }
     }
 
-    fn at(&self, t: f32) -> Vec3 {
+    pub fn origin(&self) -> Vec3 {
+        self.origin
+    }
+
+    pub fn direction(&self) -> Vec3 {
+        self.direction
+    }
+
+    pub fn at(&self, t: f32) -> Vec3 {
         self.origin + (self.direction * t)
     }
 
-    pub fn color(&self) -> Color {
-        if let Some(t) = self.hit_sphere(&Vec3::new(0.0, 0.0, -1.0), 0.5) {
-            let n = unit_vector(self.at(t) - Vec3::new(0.0, 0.0, -1.0));
-            let vec = Vec3::new(n.x() + 1.0, n.y() + 1.0, n.z() + 1.0) * 0.5;
-            return Color::from_vec3(vec);
+    pub fn color(&self, world: &impl Hittable) -> Color {
+        if let Some(rec) = world.hit(&self, 0.0, INFINITY) {
+            return Color::from_vec3((rec.normal() + Vec3::new(1.0, 1.0, 1.0)) * 0.5);
         }
 
         let unit_direction = unit_vector(self.direction);
@@ -26,19 +36,5 @@ impl Ray {
         let t = 0.5 * (unit_direction.y() + 1.0);
 
         Color::from_vec3(Vec3::new(1.0, 1.0, 1.0) * (1.0 - t) + Vec3::new(0.5, 0.7, 1.0) * t)
-    }
-
-    fn hit_sphere(&self, center: &Vec3, radius: f32) -> Option<f32> {
-        let oc = self.origin - *center;
-        let a = self.direction.length_squared();
-        let half_b = dot(&oc, &self.direction);
-        let c = oc.length_squared() - radius * radius;
-        let discriminant = half_b * half_b - a * c;
-
-        if discriminant < 0.0 {
-            None
-        } else {
-            return Some((-half_b - discriminant.sqrt()) / a);
-        }
     }
 }

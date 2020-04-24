@@ -28,3 +28,7 @@ Third part colors a sphere red:
 Fourth part colors a sphere to its normal vectors:
 
 ![Fourth image](/images/fourth_image.png)
+
+Fifth part adds hittable objects and draws to sphere's on image
+
+![Fifth image](/images/fifth_image.png)

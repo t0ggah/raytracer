@@ -55,7 +55,7 @@ mod tests {
         ppm.add_pixel(0, 1, Color::new(3.0, 3.0, 3.0));
         ppm.add_pixel(1, 1, Color::new(4.0, 4.0, 4.0));
 
-        let expexted = "P3\n2 2\n255\n255 255 255\n511 511 511\n767 767 767\n1023 1023 1023\n";
+        let expexted = "P3\n2 2\n255\n255 255 255\n255 255 255\n255 255 255\n255 255 255\n";
         let result = format!("{}", ppm);
 
         assert_eq!(result, expexted);
