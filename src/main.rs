@@ -1,4 +1,4 @@
-use raytracer::image::PPM;
+use raytracer::image::{ModifiableImage, PPM};
 use raytracer::ray::Ray;
 use raytracer::vector::Vec3;
 
@@ -6,7 +6,15 @@ fn main() {
     let image_width = 200;
     let image_height = 100;
     let mut image = PPM::new(image_width, image_height);
+    build_image(&mut image, image_width, image_height);
 
+    println!("{}", image);
+}
+
+fn build_image<T>(image_creator: &mut T, image_width: usize, image_height: usize)
+where
+    T: ModifiableImage,
+{
     let lower_left_corner = Vec3::new(-2.0, -1.0, -1.0);
     let horizontal = Vec3::new(4.0, 0.0, 0.0);
     let vertical = Vec3::new(0.0, 2.0, 0.0);
@@ -20,9 +28,7 @@ fn main() {
             let ray = Ray::new(origin, lower_left_corner + horizontal * u + vertical * v);
 
             let color = ray.color();
-            image.add_pixel(x, y, color);
+            image_creator.add_pixel(x, y, color);
         }
     }
-
-    println!("{}", image);
 }

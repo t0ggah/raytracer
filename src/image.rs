@@ -1,5 +1,10 @@
 use crate::vector::Color;
 use std::fmt;
+use std::fmt::Display;
+
+pub trait ModifiableImage {
+    fn add_pixel(&mut self, x: usize, y: usize, color: Color);
+}
 
 #[derive(Debug)]
 pub struct PPM {
@@ -17,21 +22,23 @@ impl PPM {
         }
     }
 
-    pub fn add_pixel(&mut self, x: usize, y: usize, rgb: Color) {
-        self.pixels[x + (self.width * y)] = rgb;
-    }
-
     pub fn get_pixel(&self, x: usize, y: usize) -> Color {
         self.pixels[x + (self.width * y)]
     }
 }
 
-impl fmt::Display for PPM {
+impl Display for PPM {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let lines = (0..self.height)
             .flat_map(|y| (0..self.width).map(move |x| format!("{}\n", self.get_pixel(x, y))))
             .collect::<String>();
         write!(f, "P3\n{} {}\n255\n{}", self.width, self.height, lines)
+    }
+}
+
+impl ModifiableImage for PPM {
+    fn add_pixel(&mut self, x: usize, y: usize, rgb: Color) {
+        self.pixels[x + (self.width * y)] = rgb;
     }
 }
 
