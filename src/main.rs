@@ -8,13 +8,14 @@ fn main() {
     let image_width = 200;
     let image_height = 100;
     let samples_per_pixel = 100;
+    let max_depth = 50;
     let mut image = PPM::new(image_width, image_height, samples_per_pixel);
-    build_image(&mut image, image_width, image_height);
+    build_image(&mut image, image_width, image_height, max_depth);
 
     println!("{}", image);
 }
 
-fn build_image<T>(image_creator: &mut T, image_width: usize, image_height: usize)
+fn build_image<T>(image_creator: &mut T, image_width: usize, image_height: usize, max_depth: u8)
 where
     T: ModifiableImage,
 {
@@ -32,7 +33,7 @@ where
                 let v = (j as f32 + random()) / image_height as f32;
                 let ray = camera.get_ray(u, v);
 
-                color += ray.color(&world);
+                color += ray.color(&world, max_depth);
             }
 
             image_creator.add_pixel(x, y, color);

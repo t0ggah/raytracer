@@ -1,3 +1,4 @@
+use crate::random::{random, random_min_max};
 use std::ops;
 
 #[derive(Debug, Clone, Copy, Default, PartialEq)]
@@ -8,6 +9,30 @@ pub struct Vec3 {
 impl Vec3 {
     pub fn new(e0: f32, e1: f32, e2: f32) -> Self {
         Vec3 { e: [e0, e1, e2] }
+    }
+
+    pub fn random_in_unit_sphere() -> Self {
+        loop {
+            let p = Self::random();
+
+            if p.length_squared() >= 1.0 {
+                continue;
+            }
+
+            return p;
+        }
+    }
+
+    fn random() -> Self {
+        return Vec3::new(random(), random(), random());
+    }
+
+    fn random_min_max(min: f32, max: f32) -> Self {
+        return Vec3::new(
+            random_min_max(min, max),
+            random_min_max(min, max),
+            random_min_max(min, max),
+        );
     }
 
     pub fn x(&self) -> f32 {

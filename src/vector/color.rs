@@ -53,3 +53,12 @@ impl std::ops::AddAssign for Color {
         self.0.e[2] += rhs.0.e[2];
     }
 }
+
+impl std::ops::Mul<f32> for Color {
+    type Output = Self;
+
+    fn mul(mut self, rhs: f32) -> Self::Output {
+        self.0 = self.0 * rhs;
+        self
+    }
+}

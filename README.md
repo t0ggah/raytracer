@@ -29,3 +29,7 @@ Fifth part adds hittable objects and draws to sphere's on image
 Sixth part adds antialising to the edges of the objects
 
 ![Sixth image](/images/sixth_image.png)
+
+Seventh part renders a diffuse sphere
+
+![Seventh image](/images/seventh_image.png)

@@ -26,9 +26,15 @@ impl Ray {
         self.origin + (self.direction * t)
     }
 
-    pub fn color(&self, world: &impl Hittable) -> Color {
+    pub fn color(&self, world: &impl Hittable, depth: u8) -> Color {
+        if depth <= 0 {
+            return Color::new(0.0, 0.0, 0.0);
+        }
+
         if let Some(rec) = world.hit(&self, 0.0, INFINITY) {
-            return Color::from_vec3((rec.normal() + Vec3::new(1.0, 1.0, 1.0)) * 0.5);
+            let target = rec.p() + rec.normal() + Vec3::random_in_unit_sphere();
+            let ray = Ray::new(rec.p(), target - rec.p());
+            return ray.color(world, depth - 1) * 0.5;
         }
 
         let unit_direction = unit_vector(self.direction);
