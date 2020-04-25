@@ -37,3 +37,7 @@ Seventh part renders a diffuse sphere
 Eight part does a gamma correction to the diffuse sphere
 
 ![Eight image](/images/eight_image.png)
+
+Ninth part adds hemisperical scattering to the diffuse sphere
+
+![Ninth image](/images/ninth_image.png)

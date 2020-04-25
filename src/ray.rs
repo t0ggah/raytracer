@@ -34,7 +34,7 @@ impl Ray {
                     break Color::new(0.0, 0.0, 0.0);
                 }
                 (_, Some(rec)) => {
-                    let target = rec.p() + rec.normal() + Vec3::random_unit_vector();
+                    let target = rec.p() + rec.normal().random_in_hemisphere();
                     self.origin = rec.p();
                     self.direction = target - rec.p();
                     factor *= 0.5;

@@ -1,4 +1,5 @@
 use crate::random::{random, random_min_max};
+use crate::vector::dot;
 use std::ops;
 
 const PI: f32 = 3.1415926535897932385;
@@ -33,16 +34,18 @@ impl Vec3 {
         }
     }
 
-    fn random() -> Self {
-        return Vec3::new(random(), random(), random());
+    pub fn random_in_hemisphere(&self) -> Self {
+        let in_unit_sphere = Self::random_in_unit_sphere();
+
+        if dot(&in_unit_sphere, self) > 0.0 {
+            in_unit_sphere
+        } else {
+            -in_unit_sphere
+        }
     }
 
-    fn random_min_max(min: f32, max: f32) -> Self {
-        return Vec3::new(
-            random_min_max(min, max),
-            random_min_max(min, max),
-            random_min_max(min, max),
-        );
+    fn random() -> Self {
+        return Vec3::new(random(), random(), random());
     }
 
     pub fn x(&self) -> f32 {
