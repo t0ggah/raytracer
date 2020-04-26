@@ -27,21 +27,21 @@ impl Ray {
 
     pub fn color(&mut self, world: &impl Hittable, max_depth: u8) -> Color {
         let mut factor = 1.0;
-        let mut depth = max_depth;
+        let mut depth = 0;
         loop {
-            match (depth, world.hit(&self, 0.001, INFINITY)) {
-                (depth, _) if depth <= 0 => {
-                    break Color::new(0.0, 0.0, 0.0);
-                }
-                (_, Some(rec)) => {
+            if depth >= max_depth {
+                break Color::new(0.0, 0.0, 0.0);
+            }
+            match world.hit(&self, 0.001, INFINITY) {
+                Some(rec) => {
                     let target = rec.p() + rec.normal().random_in_hemisphere();
                     self.origin = rec.p();
                     self.direction = target - rec.p();
                     factor *= 0.5;
-                    depth -= 1;
+                    depth += 1;
                     continue;
                 }
-                (_, None) => {
+                None => {
                     let unit_direction = unit_vector(self.direction);
 
                     let t = 0.5 * (unit_direction.y() + 1.0);

@@ -1,8 +1,7 @@
 use crate::random::{random, random_min_max};
 use crate::vector::dot;
+use std::f32::consts::PI;
 use std::ops;
-
-const PI: f32 = 3.1415926535897932385;
 
 #[derive(Debug, Clone, Copy, Default, PartialEq)]
 pub struct Vec3 {
@@ -19,7 +18,7 @@ impl Vec3 {
         let z = random_min_max(-1.0, 1.0);
         let r = (1.0 - z * z).sqrt();
 
-        return Vec3::new(r * a.cos(), r * a.sin(), z);
+        Vec3::new(r * a.cos(), r * a.sin(), z)
     }
 
     pub fn random_in_unit_sphere() -> Self {
@@ -45,7 +44,7 @@ impl Vec3 {
     }
 
     fn random() -> Self {
-        return Vec3::new(random(), random(), random());
+        Vec3::new(random(), random(), random())
     }
 
     pub fn x(&self) -> f32 {
@@ -176,8 +175,8 @@ mod test_vec3 {
     fn test_params() {
         let vec3 = Vec3::new(2.0, 4.0, 8.0);
 
-        assert_eq!(vec3.x(), 2.0);
-        assert_eq!(vec3.y(), 4.0);
-        assert_eq!(vec3.z(), 8.0);
+        assert!(vec3.x().eq(&2.0f32));
+        assert!(vec3.y().eq(&4.0f32));
+        assert!(vec3.z().eq(&8.0f32));
     }
 }

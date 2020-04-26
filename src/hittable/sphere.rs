@@ -52,6 +52,7 @@ impl Hittable for Sphere {
                 return Some(hit_record);
             }
         }
-        return None;
+
+        None
     }
 }
