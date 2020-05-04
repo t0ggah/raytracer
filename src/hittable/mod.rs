@@ -1,11 +1,14 @@
 mod hittable_list;
+mod material;
 mod sphere;
 
 pub use hittable_list::HittableList;
+pub use material::{Lambertian, Material, Metal};
 pub use sphere::Sphere;
 
 use crate::ray::Ray;
 use crate::vector::{dot, Vec3};
+use std::rc::Rc;
 
 #[derive(Debug, Default)]
 pub struct HitRecord {
@@ -13,6 +16,7 @@ pub struct HitRecord {
     normal: Vec3,
     t: f32,
     front_face: bool,
+    pub material: Option<Rc<dyn Material>>,
 }
 
 impl HitRecord {

@@ -89,6 +89,16 @@ impl ops::Mul<f32> for Vec3 {
     }
 }
 
+impl ops::Mul<Vec3> for Vec3 {
+    type Output = Self;
+    fn mul(mut self, rhs: Vec3) -> Self::Output {
+        self.e[0] *= rhs.e[0];
+        self.e[1] *= rhs.e[1];
+        self.e[2] *= rhs.e[2];
+        self
+    }
+}
+
 impl ops::Add for Vec3 {
     type Output = Self;
     fn add(mut self, rhs: Self) -> Self::Output {

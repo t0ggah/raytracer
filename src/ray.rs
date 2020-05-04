@@ -26,30 +26,29 @@ impl Ray {
     }
 
     pub fn color(&mut self, world: &impl Hittable, max_depth: u8) -> Color {
-        let mut factor = 1.0;
-        let mut depth = 0;
-        loop {
-            if depth >= max_depth {
-                break Color::new(0.0, 0.0, 0.0);
+        let factor = 1.0;
+        let depth = 0;
+        if depth >= max_depth {
+            return Color::new(0.0, 0.0, 0.0);
+        }
+        match world.hit(&self, 0.001, INFINITY) {
+            Some(rec) => {
+                if let Some(material) = rec.material.clone() {
+                    if let Some(mut scatter) = material.scatter(self, &rec) {
+                        return scatter.attenuation * scatter.scattered.color(world, max_depth - 1);
+                    }
+                }
+
+                Color::new(0., 0., 0.)
             }
-            match world.hit(&self, 0.001, INFINITY) {
-                Some(rec) => {
-                    let target = rec.p() + rec.normal().random_in_hemisphere();
-                    self.origin = rec.p();
-                    self.direction = target - rec.p();
-                    factor *= 0.5;
-                    depth += 1;
-                    continue;
-                }
-                None => {
-                    let unit_direction = unit_vector(self.direction);
+            None => {
+                let unit_direction = unit_vector(self.direction);
 
-                    let t = 0.5 * (unit_direction.y() + 1.0);
+                let t = 0.5 * (unit_direction.y() + 1.0);
 
-                    break Color::from_vec3(
-                        Vec3::new(1.0, 1.0, 1.0) * (1.0 - t) + Vec3::new(0.5, 0.7, 1.0) * t,
-                    ) * factor;
-                }
+                Color::from_vec3(
+                    Vec3::new(1.0, 1.0, 1.0) * (1.0 - t) + Vec3::new(0.5, 0.7, 1.0) * t,
+                ) * factor
             }
         }
     }

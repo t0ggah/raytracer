@@ -41,3 +41,7 @@ Eight part does a gamma correction to the diffuse sphere
 Ninth part adds hemisperical scattering to the diffuse sphere
 
 ![Ninth image](/images/ninth_image.png)
+
+Tenth part adds material to sphere
+
+![Tenth image](/images/tenth_image.png)

@@ -63,3 +63,14 @@ impl std::ops::Mul<f32> for Color {
         self
     }
 }
+
+impl std::ops::Mul<Color> for Color {
+    type Output = Self;
+
+    fn mul(mut self, rhs: Color) -> Self::Output {
+        self.0.e[0] *= rhs.0.e[0];
+        self.0.e[1] *= rhs.0.e[1];
+        self.0.e[2] *= rhs.0.e[2];
+        self
+    }
+}
