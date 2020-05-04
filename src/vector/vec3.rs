@@ -5,12 +5,14 @@ use std::ops;
 
 #[derive(Debug, Clone, Copy, Default, PartialEq)]
 pub struct Vec3 {
-    pub e: [f32; 3],
+    pub x: f32,
+    pub y: f32,
+    pub z: f32,
 }
 
 impl Vec3 {
-    pub fn new(e0: f32, e1: f32, e2: f32) -> Self {
-        Vec3 { e: [e0, e1, e2] }
+    pub fn new(x: f32, y: f32, z: f32) -> Self {
+        Vec3 { x, y, z }
     }
 
     pub fn random_unit_vector() -> Self {
@@ -66,15 +68,15 @@ impl Vec3 {
     }
 
     pub fn x(&self) -> f32 {
-        self.e[0]
+        self.x
     }
 
     pub fn y(&self) -> f32 {
-        self.e[1]
+        self.y
     }
 
     pub fn z(&self) -> f32 {
-        self.e[2]
+        self.z
     }
 
     pub fn length(&self) -> f32 {
@@ -82,7 +84,7 @@ impl Vec3 {
     }
 
     pub fn length_squared(&self) -> f32 {
-        self.e[0] * self.e[0] + self.e[1] * self.e[1] + self.e[2] * self.e[2]
+        self.x * self.x + self.y * self.y + self.z * self.z
     }
 }
 
@@ -90,9 +92,9 @@ impl ops::Div<f32> for Vec3 {
     type Output = Self;
     fn div(mut self, rhs: f32) -> Self::Output {
         let k = 1.0 / rhs;
-        self.e[0] *= k;
-        self.e[1] *= k;
-        self.e[2] *= k;
+        self.x *= k;
+        self.y *= k;
+        self.z *= k;
         self
     }
 }
@@ -100,9 +102,9 @@ impl ops::Div<f32> for Vec3 {
 impl ops::Mul<f32> for Vec3 {
     type Output = Self;
     fn mul(mut self, rhs: f32) -> Self::Output {
-        self.e[0] *= rhs;
-        self.e[1] *= rhs;
-        self.e[2] *= rhs;
+        self.x *= rhs;
+        self.y *= rhs;
+        self.z *= rhs;
         self
     }
 }
@@ -110,9 +112,9 @@ impl ops::Mul<f32> for Vec3 {
 impl ops::Mul<Vec3> for Vec3 {
     type Output = Self;
     fn mul(mut self, rhs: Vec3) -> Self::Output {
-        self.e[0] *= rhs.e[0];
-        self.e[1] *= rhs.e[1];
-        self.e[2] *= rhs.e[2];
+        self.x *= rhs.x;
+        self.y *= rhs.y;
+        self.z *= rhs.z;
         self
     }
 }
@@ -120,9 +122,9 @@ impl ops::Mul<Vec3> for Vec3 {
 impl ops::Add for Vec3 {
     type Output = Self;
     fn add(mut self, rhs: Self) -> Self::Output {
-        self.e[0] += rhs.e[0];
-        self.e[1] += rhs.e[1];
-        self.e[2] += rhs.e[2];
+        self.x += rhs.x;
+        self.y += rhs.y;
+        self.z += rhs.z;
         self
     }
 }
@@ -130,9 +132,9 @@ impl ops::Add for Vec3 {
 impl ops::Sub for Vec3 {
     type Output = Self;
     fn sub(mut self, rhs: Self) -> Self::Output {
-        self.e[0] -= rhs.e[0];
-        self.e[1] -= rhs.e[1];
-        self.e[2] -= rhs.e[2];
+        self.x -= rhs.x;
+        self.y -= rhs.y;
+        self.z -= rhs.z;
         self
     }
 }
@@ -141,9 +143,9 @@ impl ops::Neg for Vec3 {
     type Output = Self;
 
     fn neg(mut self) -> Self::Output {
-        self.e[0] *= -1.0;
-        self.e[1] *= -1.0;
-        self.e[2] *= -1.0;
+        self.x *= -1.0;
+        self.y *= -1.0;
+        self.z *= -1.0;
         self
     }
 }

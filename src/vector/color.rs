@@ -13,15 +13,15 @@ impl Color {
     }
 
     pub fn get_r(&self) -> f32 {
-        self.0.e[0]
+        self.0.x()
     }
 
     pub fn get_g(&self) -> f32 {
-        self.0.e[1]
+        self.0.y
     }
 
     pub fn get_b(&self) -> f32 {
-        self.0.e[2]
+        self.0.z
     }
 
     pub fn write(&self, samples_per_pixel: u8) -> String {
@@ -49,9 +49,7 @@ fn clamp(x: f32, min: f32, max: f32) -> f32 {
 
 impl std::ops::AddAssign for Color {
     fn add_assign(&mut self, rhs: Self) {
-        self.0.e[0] += rhs.0.e[0];
-        self.0.e[1] += rhs.0.e[1];
-        self.0.e[2] += rhs.0.e[2];
+        self.0 = self.0 + rhs.0;
     }
 }
 
@@ -68,9 +66,7 @@ impl std::ops::Mul<Color> for Color {
     type Output = Self;
 
     fn mul(mut self, rhs: Color) -> Self::Output {
-        self.0.e[0] *= rhs.0.e[0];
-        self.0.e[1] *= rhs.0.e[1];
-        self.0.e[2] *= rhs.0.e[2];
+        self.0 = self.0 * rhs.0;
         self
     }
 }
