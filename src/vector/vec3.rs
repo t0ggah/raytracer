@@ -43,8 +43,16 @@ impl Vec3 {
         }
     }
 
-    fn random() -> Self {
+    pub fn random() -> Self {
         Vec3::new(random(), random(), random())
+    }
+
+    pub fn random_min_max(min: f32, max: f32) -> Self {
+        Vec3::new(
+            random_min_max(min, max),
+            random_min_max(min, max),
+            random_min_max(min, max),
+        )
     }
 
     pub fn random_in_unit_disk() -> Self {

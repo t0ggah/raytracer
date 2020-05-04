@@ -58,3 +58,7 @@ Twelveth part changes camera position and orientation
 Thirteenth part spheres with depth of field
 
 ![Thirteenth image](/images/thirteenth_image.png)
+
+Last part creates a random scene of spheres
+
+![Last image](/images/last_image.png)
