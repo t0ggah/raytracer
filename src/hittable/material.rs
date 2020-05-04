@@ -3,7 +3,7 @@ use crate::random::random;
 use crate::ray::Ray;
 use crate::vector::{dot, reflect, refract, unit_vector, Color, Vec3};
 
-pub trait Material: std::fmt::Debug {
+pub trait Material: std::fmt::Debug + std::marker::Send {
     fn scatter(&self, ray_in: &Ray, rec: &HitRecord) -> Option<Scatter>;
 }
 

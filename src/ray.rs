@@ -1,5 +1,6 @@
 use crate::hittable::Hittable;
 use crate::vector::{unit_vector, Color, Vec3};
+use std::sync::Arc;
 
 const INFINITY: f32 = std::f32::MAX;
 
@@ -25,7 +26,7 @@ impl Ray {
         self.origin + (self.direction * t)
     }
 
-    pub fn color(&mut self, world: &impl Hittable, max_depth: u8) -> Color {
+    pub fn color(&mut self, world: Arc<impl Hittable>, max_depth: u8) -> Color {
         let factor = 1.0;
         let depth = 0;
         if depth >= max_depth {

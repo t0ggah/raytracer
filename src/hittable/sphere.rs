@@ -1,20 +1,20 @@
 use crate::hittable::{HitRecord, Hittable, Material};
 use crate::ray::Ray;
 use crate::vector::{dot, Vec3};
-use std::rc::Rc;
+use std::sync::Arc;
 
 pub struct Sphere {
     center: Vec3,
     radius: f32,
-    material: Rc<dyn Material>,
+    material: Arc<dyn Material + Send + Sync>,
 }
 
 impl Sphere {
-    pub fn new(center: Vec3, radius: f32, material: impl Material + 'static) -> Self {
+    pub fn new(center: Vec3, radius: f32, material: impl Material + 'static + Send + Sync) -> Self {
         Self {
             center,
             radius,
-            material: Rc::new(material),
+            material: Arc::new(material),
         }
     }
 

@@ -8,7 +8,7 @@ pub use sphere::Sphere;
 
 use crate::ray::Ray;
 use crate::vector::{dot, Vec3};
-use std::rc::Rc;
+use std::sync::Arc;
 
 #[derive(Debug, Default)]
 pub struct HitRecord {
@@ -16,7 +16,7 @@ pub struct HitRecord {
     normal: Vec3,
     t: f32,
     front_face: bool,
-    pub material: Option<Rc<dyn Material>>,
+    pub material: Option<Arc<dyn Material + Send>>,
 }
 
 impl HitRecord {

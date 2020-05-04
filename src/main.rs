@@ -3,6 +3,7 @@ use raytracer::hittable::{Dielectric, HittableList, Lambertian, Metal, Sphere};
 use raytracer::image::{ModifiableImage, PPM};
 use raytracer::random::{random, random_min_max};
 use raytracer::vector::{Color, Vec3};
+use std::sync::{Arc, Mutex};
 
 fn main() {
     let image_width = 800;
@@ -80,7 +81,7 @@ fn build_image<T>(
     samples_per_pixel: u8,
     max_depth: u8,
 ) where
-    T: ModifiableImage,
+    T: ModifiableImage + Send,
 {
     let lookfrom = Vec3::new(13.0, 2.0, 3.0);
     let lookat = Vec3::new(0.0, 0.0, 0.0);
@@ -99,20 +100,27 @@ fn build_image<T>(
         dist_to_focus,
     );
 
-    let world = random_scene();
+    let world = Arc::new(random_scene());
+    let image_creator = Arc::new(Mutex::new(image_creator));
 
-    for (j, y) in (0..image_height).rev().enumerate() {
-        for (i, x) in (0..image_width).enumerate() {
-            let mut color = Color::new(0.0, 0.0, 0.0);
-            for _ in 0..samples_per_pixel {
-                let u = (i as f32 + random()) / image_width as f32;
-                let v = (j as f32 + random()) / image_height as f32;
-                let mut ray = camera.get_ray(u, v);
+    rayon::scope(|s| {
+        for (j, y) in (0..image_height).rev().enumerate() {
+            let image_creator = image_creator.clone();
+            let world = world.clone();
+            s.spawn(move |_| {
+                for (i, x) in (0..image_width).enumerate() {
+                    let mut color = Color::new(0.0, 0.0, 0.0);
+                    for _ in 0..samples_per_pixel {
+                        let u = (i as f32 + random()) / image_width as f32;
+                        let v = (j as f32 + random()) / image_height as f32;
+                        let mut ray = camera.get_ray(u, v);
 
-                color += ray.color(&world, max_depth);
-            }
+                        color += ray.color(world.clone(), max_depth);
+                    }
 
-            image_creator.add_pixel(x, y, color);
+                    image_creator.lock().unwrap().add_pixel(x, y, color);
+                }
+            })
         }
-    }
+    })
 }

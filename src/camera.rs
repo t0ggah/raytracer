@@ -2,7 +2,7 @@ use crate::ray::Ray;
 use crate::vector::{cross, unit_vector, Vec3};
 use std::f32::consts::PI;
 
-#[derive(Default)]
+#[derive(Default, Clone, Copy)]
 pub struct Camera {
     origin: Vec3,
     lower_left_corner: Vec3,
