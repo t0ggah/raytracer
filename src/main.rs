@@ -19,6 +19,17 @@ fn build_image<T>(image_creator: &mut T, image_width: usize, image_height: usize
 where
     T: ModifiableImage,
 {
+    let aspect_ratio = image_width as f32 / image_height as f32;
+    let vup = Vec3::new(0.0, 1.0, 0.0);
+
+    let camera = Camera::new(
+        Vec3::new(-2.0, 2.0, 1.0),
+        Vec3::new(0.0, 0.0, -1.0),
+        vup,
+        20.0,
+        aspect_ratio,
+    );
+
     let mut world = HittableList::new();
     world.add(Sphere::new(
         Vec3::new(0.0, 0.0, -1.0),
@@ -45,8 +56,6 @@ where
         -0.45,
         Dielectric::new(1.5),
     ));
-
-    let camera = Camera::new();
 
     for (j, y) in (0..image_height).rev().enumerate() {
         for (i, x) in (0..image_width).enumerate() {

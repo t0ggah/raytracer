@@ -22,3 +22,11 @@ pub fn refract(uv: Vec3, n: Vec3, etai_over_etat: f32) -> Vec3 {
     let r_out_perp = n * -(1.0f32 - r_out_parallel.length_squared()).sqrt();
     return r_out_parallel + r_out_perp;
 }
+
+pub fn cross(u: Vec3, v: Vec3) -> Vec3 {
+    return Vec3::new(
+        u.e[1] * v.e[2] - u.e[2] * v.e[1],
+        u.e[2] * v.e[0] - u.e[0] * v.e[2],
+        u.e[0] * v.e[1] - u.e[1] * v.e[0],
+    );
+}

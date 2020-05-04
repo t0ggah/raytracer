@@ -49,3 +49,8 @@ Tenth part adds material to sphere
 Eleventh part adds dielectric material
 
 ![Eleventh image](/images/eleventh_image.png)
+
+Twelveth part changes camera position and orientation
+
+![Twelveth image - 1](/images/twelveth_image_1.png)
+![Twelveth image - 2](/images/twelveth_image_2.png)
