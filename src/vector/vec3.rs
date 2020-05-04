@@ -47,6 +47,16 @@ impl Vec3 {
         Vec3::new(random(), random(), random())
     }
 
+    pub fn random_in_unit_disk() -> Self {
+        loop {
+            let p = Vec3::new(random_min_max(-1.0, 1.0), random_min_max(-1.0, 1.0), 0.0);
+            if p.length_squared() >= 1.0 {
+                continue;
+            }
+            return p;
+        }
+    }
+
     pub fn x(&self) -> f32 {
         self.e[0]
     }

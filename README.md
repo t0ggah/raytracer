@@ -54,3 +54,7 @@ Twelveth part changes camera position and orientation
 
 ![Twelveth image - 1](/images/twelveth_image_1.png)
 ![Twelveth image - 2](/images/twelveth_image_2.png)
+
+Thirteenth part spheres with depth of field
+
+![Thirteenth image](/images/thirteenth_image.png)

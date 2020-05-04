@@ -19,15 +19,21 @@ fn build_image<T>(image_creator: &mut T, image_width: usize, image_height: usize
 where
     T: ModifiableImage,
 {
+    let lookfrom = Vec3::new(3.0, 3.0, 2.0);
+    let lookat = Vec3::new(0.0, 0.0, -1.0);
     let aspect_ratio = image_width as f32 / image_height as f32;
     let vup = Vec3::new(0.0, 1.0, 0.0);
+    let dist_to_focus = (lookfrom - lookat).length();
+    let aperture = 2.0;
 
     let camera = Camera::new(
-        Vec3::new(-2.0, 2.0, 1.0),
-        Vec3::new(0.0, 0.0, -1.0),
+        lookfrom,
+        lookat,
         vup,
         20.0,
         aspect_ratio,
+        aperture,
+        dist_to_focus,
     );
 
     let mut world = HittableList::new();
