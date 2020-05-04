@@ -1,5 +1,5 @@
 use raytracer::camera::Camera;
-use raytracer::hittable::{HittableList, Lambertian, Metal, Sphere};
+use raytracer::hittable::{Dielectric, HittableList, Lambertian, Metal, Sphere};
 use raytracer::image::{ModifiableImage, PPM};
 use raytracer::random::random;
 use raytracer::vector::{Color, Vec3};
@@ -23,7 +23,7 @@ where
     world.add(Sphere::new(
         Vec3::new(0.0, 0.0, -1.0),
         0.5,
-        Lambertian::new(Color::new(0.7, 0.3, 0.3)),
+        Lambertian::new(Color::new(0.1, 0.2, 0.5)),
     ));
     world.add(Sphere::new(
         Vec3::new(0.0, -100.5, -1.0),
@@ -38,7 +38,12 @@ where
     world.add(Sphere::new(
         Vec3::new(-1.0, 0.0, -1.0),
         0.5,
-        Metal::new(Color::new(0.8, 0.8, 0.8), 1.0),
+        Dielectric::new(1.5),
+    ));
+    world.add(Sphere::new(
+        Vec3::new(-1.0, 0.0, -1.0),
+        -0.45,
+        Dielectric::new(1.5),
     ));
 
     let camera = Camera::new();

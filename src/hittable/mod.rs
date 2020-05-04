@@ -3,7 +3,7 @@ mod material;
 mod sphere;
 
 pub use hittable_list::HittableList;
-pub use material::{Lambertian, Material, Metal};
+pub use material::{Dielectric, Lambertian, Material, Metal};
 pub use sphere::Sphere;
 
 use crate::ray::Ray;

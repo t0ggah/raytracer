@@ -15,3 +15,10 @@ pub fn dot(u: &Vec3, v: &Vec3) -> f32 {
 pub fn reflect(v: Vec3, n: Vec3) -> Vec3 {
     v - n * 2.0 * dot(&v, &n)
 }
+
+pub fn refract(uv: Vec3, n: Vec3, etai_over_etat: f32) -> Vec3 {
+    let cos_theta = dot(&(-uv), &n);
+    let r_out_parallel = (uv + n * cos_theta) * etai_over_etat;
+    let r_out_perp = n * -(1.0f32 - r_out_parallel.length_squared()).sqrt();
+    return r_out_parallel + r_out_perp;
+}

@@ -45,3 +45,7 @@ Ninth part adds hemisperical scattering to the diffuse sphere
 Tenth part adds material to sphere
 
 ![Tenth image](/images/tenth_image.png)
+
+Eleventh part adds dielectric material
+
+![Eleventh image](/images/eleventh_image.png)
